@@ -5,12 +5,15 @@ from wrapper import send_message, send_GIPHY
 class TourMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.giphy_keyword = ''
-        
+        self.first_enter = True
+        self.id = -1
         self.machine = GraphMachine(
             model=self,
             **machine_configs
         )
-    
+        
+    def is_first_entry(self, event):
+        return self.first_enter
     def is_going_to_liberal(self, event):
         if event.get("message"):
             text = event['message']['text']
@@ -53,7 +56,7 @@ class TourMachine(GraphMachine):
             text = event['message']['text']
             return text == "是"
     
-    def is_going_main(self, event):
+    def is_going_user(self, event):
         if event.get("message"):
             text = event['message']['text']
             return text == "否"
@@ -73,20 +76,21 @@ class TourMachine(GraphMachine):
     def is_going_to_main_from_gif(self, event):
         if event.get("message"):
             text = event['message']['text']
-            return text == "" or text == "返回"
+            return text == "返回"
     def on_enter_gif(self, event):
         print("I'm entering gif")
 
         sender_id = event['sender']['id']
-        send_message(sender_id,"輸入任何字串來在giphy尋找動圖")
-        send_message(sender_id,"輸入空字串或者返回來回到主頁面")
+        self.giphy_keyword = ''
+        send_message(sender_id,"輸入任何字串來尋找GIF")
+        send_message(sender_id,"輸入返回來回到主頁面")
 
     def on_enter_gif_detail(self, event):
         print("I'm entering gif detail")
         sender_id = event['sender']['id']
         send_GIPHY(sender_id,self.giphy_keyword)
         self.giphy_keyword = ''
-    
+        self.go_back(event)
 
     def on_enter_liberal(self, event):
         print("I'm entering liberal")
@@ -109,7 +113,7 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"華語中心 http://kclc.ncku.edu.tw")
         send_message(sender_id,"外語中心 http://flc.ncku.edu.tw?Lang=zh-tw")
         send_message(sender_id,"多元文化研究中心 http://www.cmcs.ncku.edu.tw")
-
+        self.go_back(event)
 
     def on_enter_science(self, event):
         print("I'm entering science")
@@ -129,6 +133,7 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"光電科學與工程學系 http://www.dps.ncku.edu.tw")
         send_message(sender_id,"太空與電漿科學研究所 http://www.isaps.ncku.edu.tw")
         send_message(sender_id,"理論科學研究中心 http://www.ncts.ncku.edu.tw")
+        self.go_back(event)
 
     def on_enter_management(self, event):
         print("I'm entering management")
@@ -154,6 +159,7 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"高階管理碩士在職專班 (EMBA) http://www.emba.ncku.edu.tw")
         send_message(sender_id,"國際經營管理研究所 (IMBA) http://www.imba.ncku.edu.tw")
         send_message(sender_id,"經營管理碩士學位學程 (AMBA) http://www.amba.ncku.edu.tw")
+        self.go_back(event)
 
     def on_enter_engineering(self, event):
         print("I'm entering engineering")
@@ -185,6 +191,8 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"自然災害減災及管理國際碩士學位學程 http://www.inhmm.ncku.edu.tw")
         send_message(sender_id,"工程管理碩士在職專班 http://www.emgp.ncku.edu.tw")
         send_message(sender_id,"醫療器材創新國際碩士班 http://web.bme.ncku.edu.tw")
+        self.go_back(event)
+    
     def on_enter_eecs(self, event):
         print("I'm entering eecs")
 
@@ -203,6 +211,8 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"製造資訊與系統研究所 http://www.imis.ncku.edu.tw?Lang=zh-tw")
         send_message(sender_id,"電腦與通信工程研究所 http://cce.ee.ncku.edu.tw")
         send_message(sender_id,"奈米積體電路工程碩博士學位學程 http://nice.ncku.edu.tw")
+        self.go_back(event)
+
     def on_enter_css(self, event):
         print("I'm entering css")
 
@@ -220,6 +230,8 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"心理學系 http://psychology.ncku.edu.tw")
         send_message(sender_id,"教育研究所 http://www.ed.ncku.edu.tw")
         send_message(sender_id,"心智影像研究中心 http://fmri.ncku.edu.tw")
+        self.go_back(event)
+    
     def on_enter_cpd(self, event):
         print("I'm entering cpd")
 
@@ -236,6 +248,7 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"工業設計學系 http://www.ide.ncku.edu.tw")
         send_message(sender_id,"創意產業設計研究所 http://www.icid.ncku.edu.tw")
         send_message(sender_id,"科技藝術碩士學位學程 http://technoart.ncku.edu.tw")
+        self.go_back(event)
 
     def on_enter_bb(self, event):
         print("I'm entering bb")
@@ -252,7 +265,8 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"生物科技與產業科學系 http://dbbs.ncku.edu.tw?Lang=zh-tw")
         send_message(sender_id,"熱帶植物科學研究所 http://www.itps.ncku.edu.tw")
         send_message(sender_id,"轉譯農業科學博士學位學程 http://www.tas.ncku.edu.tw")
-        
+        self.go_back(event)
+
     def on_enter_med(self, event):
         print("I'm entering med")
 
@@ -279,10 +293,13 @@ class TourMachine(GraphMachine):
         send_message(sender_id,"健康照護科學研究所 http://ahs.ncku.edu.tw")
         send_message(sender_id,"老年學研究所 http://www.iog.ncku.edu.tw")
         send_message(sender_id,"食品安全衛生暨風險管理研究所 http://www.dfsr.ncku.edu.tw")
-    
+        self.go_back(event)
+
     def on_enter_user(self, event):
+        print("Entering User")
         sender_id = event['sender']['id']
         send_message(sender_id,"這是成大簡易學系檢索系統，可輸入學院查詢")
+        self.first_enter = False
 
 
     

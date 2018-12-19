@@ -5,7 +5,11 @@ import requests
 
 from fsm import TourMachine
 
+timestamp = -1
 app = Flask(__name__)
+
+message_entry = None
+
 
 """page_id 1704878453059005"""
 
@@ -143,7 +147,7 @@ machine = TourMachine(
             'conditions': 'is_going_to_detail'
         },
         {
-            'trigger': 'go_back',
+            'trigger': 'advance',
             'source': [
                 'liberal',
                 'science',
@@ -156,7 +160,7 @@ machine = TourMachine(
                 'med'
             ],
             'dest':'user',
-            'conditions': 'is_going_main'
+            'conditions': 'is_going_user'
         },
         {
             'trigger': 'go_back',
@@ -191,10 +195,16 @@ machine = TourMachine(
             'dest': 'gif'
         },
         {
-            'trigger': 'go_back',
+            'trigger': 'advance',
             'source': 'gif',
             'dest': 'user',
             'conditions': 'is_going_to_main_from_gif'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'user',
+            'dest': 'user',
+            'conditions': 'is_first_entry'
         }
     ],
     initial='user',
@@ -218,10 +228,19 @@ def webhook():
 @app.route("/webhook", methods=["POST"])
 def recv_msg_and_reply():
     message_entries = json.loads(request.data.decode('utf8'))
+    '''print(message_entries)'''
+    global timestamp
     event = message_entries['entry'][0]['messaging'][0]
-    machine.advance(event)
-    return "OK"
+    if timestamp != event['timestamp'] and 'message' in event:
+        print("timestamp:{0}".format(timestamp))
+        timestamp = event['timestamp']
+        print("timestamp:{0}".format(timestamp))
+        machine.advance(event)
+        return "OK"
+    else:
+        return "NOT_OK"
 
 
 if __name__ == "__main__":
+    
     app.run()

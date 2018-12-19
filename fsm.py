@@ -97,6 +97,9 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是文學院")
+        send_message(sender_id,"中國文學系、外國語文學系、歷史學系、臺灣文學系")
+        send_message(sender_id,"藝術研究所、考古學研究所、戲劇碩士學位學程")
+        send_message(sender_id,"華語中心、外語中心、多元文化研究中心")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_liberal(self, event):
@@ -120,6 +123,10 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是理學院")
+        send_message(sender_id,"數學系、化學系、物理學系、地球科學系")
+        send_message(sender_id,"光電科學與工程學系")
+        send_message(sender_id,"太空與電漿科學研究所")
+        send_message(sender_id,"理論科學研究中心")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_science(self, event):
@@ -140,6 +147,15 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是管理學院")
+        send_message(sender_id,"會計學系、統計學系、企業管理學系")
+        send_message(sender_id,"交通管理科學系、電信管理研究所")
+        send_message(sender_id,"國際企業研究所、財務金融研究所")
+        send_message(sender_id,"體育健康與休閒研究所")
+        send_message(sender_id,"工業與資訊管理學系暨資訊管理研究所")
+        send_message(sender_id,"數據科學研究所")
+        send_message(sender_id,"高階管理碩士在職專班 (EMBA)")
+        send_message(sender_id,"國際經營管理研究所 (IMBA)")
+        send_message(sender_id,"經營管理碩士學位學程 (AMBA)")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_management(self, event):
@@ -166,6 +182,19 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是工學院")
+        send_message(sender_id,"機械工程學系、化學工程學系")
+        send_message(sender_id,"土木工程學系、材料科學及工程學系")
+        send_message(sender_id,"水利及海洋工程學系、工程科學系")
+        send_message(sender_id,"系統及船舶機電工程學系")
+        send_message(sender_id,"航空太空工程學系、資源工程學系")
+        send_message(sender_id,"環境工程學系、生物醫學工程學系")
+        send_message(sender_id,"測量及空間資訊學系")
+        send_message(sender_id,"海洋科技與事務研究所")
+        send_message(sender_id,"民航研究所、能源國際學士學位學程")
+        send_message(sender_id,"尖端材料國際碩士學位學程")
+        send_message(sender_id,"自然災害減災及管理國際碩士學位學程")
+        send_message(sender_id,"工程管理碩士在職專班")
+        send_message(sender_id,"醫療器材創新國際碩士班")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_engineering(self, event):
@@ -198,6 +227,11 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是電機資訊學院")
+        send_message(sender_id,"電機工程學系、資訊工程學系")
+        send_message(sender_id,"醫學資訊研究所、微電子工程研究所")
+        send_message(sender_id,"製造資訊與系統研究所")
+        send_message(sender_id,"電腦與通信工程研究所")
+        send_message(sender_id,"奈米積體電路工程碩博士學位學程")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_eecs(self, event):
@@ -218,6 +252,8 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是社會科學院")
+        send_message(sender_id,"政治學系、經濟學系、法律學系")
+        send_message(sender_id,"心理學系、教育研究所、心智影像研究中心")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_css(self, event):
@@ -237,6 +273,9 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是規劃與設計學院")
+        send_message(sender_id,"建築學系、都市計劃學系")
+        send_message(sender_id,"工業設計學系、創意產業設計研究所")
+        send_message(sender_id,"科技藝術碩士學位學程")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_cpd(self, event):
@@ -255,6 +294,9 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是生物科學與科技學院")
+        send_message(sender_id,"生命科學系、生物科技與產業科學系")
+        send_message(sender_id,"熱帶植物科學研究所")
+        send_message(sender_id,"轉譯農業科學博士學位學程")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_bb(self, event):
@@ -272,6 +314,33 @@ class TourMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         send_message(sender_id,"目前所檢視的是醫學院")
+        send_message(sender_id,"生物化學暨分子生物學研究所")
+        send_message(sender_id,"生理學科暨研究所")
+        send_message(sender_id,"解剖學科暨細胞生物與解剖學研究所")
+        send_message(sender_id,"公共衛生學科暨公共衛生研究所")
+        send_message(sender_id,"寄生蟲學科")
+        send_message(sender_id,"工業衛生學科暨環境醫學研究所")
+        send_message(sender_id,"藥理學科暨藥理學研究所")
+        send_message(sender_id,"微生物學科暨微生物及免疫學研究所")
+        send_message(sender_id,"病理學科、外科學科、婦產學科")
+        send_message(sender_id,"神經學科、眼科學科、皮膚學科")
+        send_message(sender_id,"麻醉學科、放射線學科、家庭醫學科")
+        send_message(sender_id,"牙科學科、法醫學科、內科學科")
+        send_message(sender_id,"小兒學科、骨科學科、精神學科")
+        send_message(sender_id,"耳鼻喉學科、泌尿學科、復健學科")
+        send_message(sender_id,"核子醫學科、急診學科")
+        send_message(sender_id,"職業及環境醫學科、藥學系")
+        send_message(sender_id,"護理學系、物理治療學系")
+        send_message(sender_id,"職能治療學系、醫學檢驗生物技術學系")
+        send_message(sender_id,"臨床藥學與藥物科技研究所")
+        send_message(sender_id,"基礎醫學研究所")
+        send_message(sender_id,"行為醫學研究所")
+        send_message(sender_id,"分子醫學研究所")
+        send_message(sender_id,"口腔醫學研究所")
+        send_message(sender_id,"臨床醫學研究所")
+        send_message(sender_id,"健康照護科學研究所")
+        send_message(sender_id,"老年學研究所")
+        send_message(sender_id,"食品安全衛生暨風險管理研究所")
         send_message(sender_id,"是否要檢視其所有的系所以及網站？")
 
     def on_enter_detail_med(self, event):

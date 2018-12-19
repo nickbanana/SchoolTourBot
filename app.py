@@ -1,7 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, send_file
 import json
 import os
 import requests
+from io import BytesIO
 
 from fsm import TourMachine
 
@@ -239,6 +240,15 @@ def recv_msg_and_reply():
         return "OK"
     else:
         return "NOT_OK"
+
+@app.route('/show-fsm', methods=['GET'])
+def show_fsm():
+    byte_io = BytesIO()
+    machine.get_graph().draw(byte_io, prog='dot', format='png')
+    byte_io.seek(0)
+    return send_file(byte_io, attachment_filename='fsm.png', mimetype='image/png')
+
+
 
 
 if __name__ == "__main__":

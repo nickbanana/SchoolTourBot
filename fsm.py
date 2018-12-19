@@ -299,6 +299,9 @@ class TourMachine(GraphMachine):
         print("Entering User")
         sender_id = event['sender']['id']
         send_message(sender_id,"這是成大簡易學系檢索系統，可輸入學院查詢")
+        send_message(sender_id,"能檢視的學院有文學院、理學院、管理學院")
+        send_message(sender_id,"工學院、電機資訊學院、社會科學院")
+        send_message(sender_id,"規劃與設計學院、生物科學與科技學院以及醫學院")
         self.first_enter = False
 
 
